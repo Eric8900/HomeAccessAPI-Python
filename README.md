@@ -12,8 +12,8 @@ I might expand this later if I need.
 - This is the API home page and shows you the possible routes (which is not many)
 
 # /api/getGrades
-fields: username='' | password=''
-## https://home-access-api-python.vercel.app/api/getGrades?username=K1111111&password=PASSWORD
+Fields: username='' | password=''
+Example: https://home-access-api-python.vercel.app/api/getGrades?username=K1111111&password=PASSWORD
 Returns a JSON with the following:
 - "names":
   - Indexes of class names correspond with the array of "grades"
