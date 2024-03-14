@@ -2,6 +2,8 @@
 
 This is a custom HAC API for Katy ISD that I created using Python, Flask, Beautiful Soup, and requests-html. There is only one path for the API as it is specifically made for my Grade Calculator App to calculate the lowest grade needed to keep a specific grade. 
 
+Initially, I tried getting this API to work with Puppeteer, Playwright, and Cheerio in NodeJS, but I couldn't get it to work on Vercel. Here is the repository this API is based on: https://github.com/Eric8900/HomeAccessAPI
+
 I might expand this later if I need.
 
 # Documentation
