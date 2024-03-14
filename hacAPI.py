@@ -39,7 +39,7 @@ def login(username, password):
 def home():
     return "Flask API on Vercel"
 
-@app.route("/api/home")
+@app.route("/api/")
 def api_home():
     return jsonify({
         'message': 'Welcome to the Home Access Center API!',
