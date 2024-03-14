@@ -11,10 +11,13 @@ def login(username, password):
     try:
         response = session.get(login_link)
         soup = BeautifulSoup(response.html.html, 'html.parser')
-        request_verification_token = soup.select_one('input[name="__RequestVerificationToken"]')['value']
+        request_verification_token = soup.select_one('input[name="__RequestVerificationToken"]')
+        
+        if request_verification_token is None:
+            raise Exception('Request verification token not found')
         
         data = {
-            '__RequestVerificationToken': request_verification_token,
+            '__RequestVerificationToken': request_verification_token['value'],
             'LogOnDetails.UserName': username,
             'LogOnDetails.Password': password,
             'SCKTY00328510CustomEnabled': 'True',
@@ -39,7 +42,7 @@ def login(username, password):
 def home():
     return "Flask API on Vercel"
 
-@app.route("/api/")
+@app.route("/api/home")
 def api_home():
     return jsonify({
         'message': 'Welcome to the Home Access Center API!',
@@ -60,15 +63,28 @@ def get_grades():
         
         assignment_classes = soup.select('.AssignmentClass')
         
+        if not assignment_classes:
+            raise Exception('No assignment classes found')
+        
         for i, assignment_class in enumerate(assignment_classes):
-            name = assignment_class.select_one('.sg-header a').text.strip()
+            name_element = assignment_class.select_one('.sg-header a')
+            if name_element is None:
+                raise Exception(f'Class name not found for assignment class {i+1}')
+            name = name_element.text.strip()
             class_names.append(name)
             
-            categories = soup.select_one(f'#plnMain_rptAssigmnetsByCourse_lblCategories_{i}')
+            categories_id = f'#plnMain_rptAssigmnetsByCourse_lblCategories_{i}'
+            categories = soup.select_one(categories_id)
+            if categories is None:
+                raise Exception(f'Categories not found for assignment class {i+1}')
+            
             class_grades = []
             
             for row in categories.select('.sg-asp-table-data-row'):
-                category = [cell.text.strip() for cell in row.select('td')[1:]]
+                cells = row.select('td')
+                if len(cells) < 2:
+                    raise Exception(f'Invalid category row for assignment class {i+1}')
+                category = [cell.text.strip() for cell in cells[1:]]
                 class_grades.append(category)
             
             grades.append(class_grades)
