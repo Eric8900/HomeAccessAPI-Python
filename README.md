@@ -4,7 +4,9 @@ This is a custom HAC API for Katy ISD that I created using Python, Flask, Beauti
 
 Initially, I tried getting this API to work with Puppeteer, Playwright, and Cheerio in NodeJS, but I couldn't get it to work on Vercel. Here is the repository this API is based on: https://github.com/Eric8900/HomeAccessAPI
 
-I might expand this later if I need.
+Also, Niteesh K's HomeAccessCenterAPI was a major inspiration for this API, and I learned a lot from his API here: https://github.com/nitheesh-cpu/HomeAccessCenterAPIv2
+
+I might expand this API later if I need.
 
 # Documentation
 
