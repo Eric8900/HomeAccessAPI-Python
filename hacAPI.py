@@ -42,11 +42,11 @@ def login(username, password):
 def home():
     return "Flask API on Vercel"
 
-@app.route("/api/home")
+@app.route("/api")
 def api_home():
     return jsonify({
-        'message': 'Welcome to the Home Access Center API!',
-        'routes': ['/api/home', '/api/getGrades']
+        'message': 'Home Access Center API',
+        'routes': ['/api', '/api/getGrades']
     })
 
 @app.route("/api/getGrades")
@@ -72,13 +72,12 @@ def get_grades():
                 raise Exception(f'Class name not found for assignment class {i+1}')
             name = name_element.text.strip()
             class_names.append(name)
-            
+            class_grades = []
             categories_id = f'#plnMain_rptAssigmnetsByCourse_lblCategories_{i}'
             categories = soup.select_one(categories_id)
             if categories is None:
-                raise Exception(f'Categories not found for assignment class {i+1}')
-            
-            class_grades = []
+                grades.append(class_grades)
+                continue
             
             for row in categories.select('.sg-asp-table-data-row'):
                 cells = row.select('td')
@@ -96,8 +95,8 @@ def get_grades():
         })
     except Exception as e:
         return jsonify({
-            'success': False,
-            'error': str(e)
+            'error': str(e),
+            'success': False
         }), 500
 
 if __name__ == "__main__":
