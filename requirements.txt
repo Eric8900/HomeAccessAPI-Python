@@ -1,3 +1,4 @@
 flask
 requests-html
 beautifulsoup4
+flask_cors

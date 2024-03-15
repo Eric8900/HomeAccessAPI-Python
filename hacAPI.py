@@ -1,8 +1,10 @@
 from flask import Flask, request, jsonify
 from requests_html import HTMLSession
 from bs4 import BeautifulSoup
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 def login(username, password):
     session = HTMLSession()
